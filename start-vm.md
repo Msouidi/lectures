@@ -1,4 +1,5 @@
-### Setup the infrastructure
+# Infrastructure setup
+
 1. Download and install [vagrant](https://www.vagrantup.com/) and  [virtualbox](https://www.virtualbox.org/)
 
 2. Check if vagrant is successfully installed
