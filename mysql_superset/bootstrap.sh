@@ -12,7 +12,7 @@ echo "[$(DATE)] [Info] [System] Installing mysql..."
 apt install mysql-server -y &> /dev/null
 echo "[$(DATE)] [Info] [MySQL] Setup mysql..."
 sed -i 's/bind-address.*/bind-address = 0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
-sudo service mysql restart
+service mysql restart
 mysql -e "CREATE USER 'admin'@'%' IDENTIFIED BY 'admin';"
 mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'admin'@'%';"
 mysql -e "FLUSH PRIVILEGES;"
