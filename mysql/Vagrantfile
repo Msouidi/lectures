@@ -6,7 +6,8 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: <<-SHELL
       apt update -y
       apt install mysql-server -y
-      sudo service mysql restart
+      sed -i 's/bind-address.*/bind-address = 0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
+      service mysql restart
     SHELL
   end
   

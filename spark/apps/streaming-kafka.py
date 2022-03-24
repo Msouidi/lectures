@@ -6,7 +6,7 @@ sc = SparkContext(appName="PythonSparkStreamingKafka")
 sc.setLogLevel("WARN")
 
 ssc = StreamingContext(sc, 10)
-directKafkaStream = KafkaUtils.createDirectStream(ssc, ["topic1"], {"metadata.broker.list": "192.168.33.11:9092"})
+directKafkaStream = KafkaUtils.createDirectStream(ssc, ["my_topic"], {"metadata.broker.list": "192.168.33.13:9092"})
 
 directKafkaStream.pprint()
 

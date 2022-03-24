@@ -11,6 +11,8 @@ apt update &> /dev/null
 echo "[$(DATE)] [Info] [System] Installing mysql..."
 apt install mysql-server -y &> /dev/null
 echo "[$(DATE)] [Info] [MySQL] Setup mysql..."
+sed -i 's/bind-address.*/bind-address = 0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo service mysql restart
 mysql -e "CREATE USER 'admin'@'%' IDENTIFIED BY 'admin';"
 mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'admin'@'%';"
 mysql -e "FLUSH PRIVILEGES;"
@@ -24,6 +26,7 @@ pip install apache-superset &> /dev/null
 pip install flask-wtf==0.14.2 &> /dev/null
 pip install werkzeug==0.16.1 &> /dev/null
 pip install zipp==3.1.0 &> /dev/null
+pip install mysqlclient &> /dev/null
 echo "[$(DATE)] [Info] [Superset] Setup apache superset..."
 superset db upgrade &> /dev/null
 superset fab create-admin --username admin --firstname admin --lastname admin --email admin@lecture.fr --password admin &> /dev/null
