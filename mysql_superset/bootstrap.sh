@@ -20,7 +20,7 @@ mysql -e "CREATE DATABASE data;"
 echo "[$(DATE)] [Info] [MySQL] mysql user 'admin' created with password 'admin'"
 echo "[$(DATE)] [Info] [MySQL] 'data' database created"
 echo "[$(DATE)] [Info] [System] Installing dependencies..."
-apt install build-essential libssl-dev libffi-dev python3-dev python3-pip libsasl2-dev libldap2-dev -y &> /dev/null
+apt install build-essential libssl-dev libffi-dev python3-dev python3-pip libsasl2-dev libldap2-dev default-libmysqlclient-dev -y &> /dev/null
 echo "[$(DATE)] [Info] [Superset] Installing apache superset..."
 pip install apache-superset &> /dev/null
 pip install flask-wtf==0.14.2 &> /dev/null
