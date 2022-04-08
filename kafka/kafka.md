@@ -17,17 +17,17 @@ $ cd kafka_2.13-2.8.0
 Edit the config/server.properties and setup the external IP
 ```
 $ vi config/server.properties
-listeners=PLAINTEXT://@IP:9092
+listeners=PLAINTEXT://192.168.33.13:9092
 ```
 Run the following commands in order to start all services in the correct order: 
 ```
 # Start the ZooKeeper service
-$ bin/zookeeper-server-start.sh config/zookeeper.properties
+kafka/bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
 Open another terminal session and run: 
 ```
 # Start the Kafka broker service
-$ bin/kafka-server-start.sh config/server.properties
+kafka/bin/kafka-server-start.sh config/server.properties
 ```
 
 ### 4. Create a topic to store your events
@@ -37,13 +37,13 @@ Example events are payment transactions, geolocation updates from mobile phones,
 
 So before you can write your first events, you must create a topic. Open another terminal session and run: 
 ```
-$ bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server @IP:9092
+kafka/bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server 192.168.33.13:9092
 ```
 
 All of Kafka's command line tools have additional options: run the kafka-topics.sh command without any arguments to display usage information. For example, it can also show you details such as the partition count of the new topic: 
 
 ```
-$ bin/kafka-topics.sh --describe --topic quickstart-events --bootstrap-server @IP:9092
+$ bin/kafka-topics.sh --describe --topic quickstart-events --bootstrap-server 192.168.33.13:9092
 Topic:quickstart-events  PartitionCount:1    ReplicationFactor:1 Configs:
     Topic: quickstart-events Partition: 0    Leader: 0   Replicas: 0 Isr: 0
 ```
@@ -54,19 +54,19 @@ Topic:quickstart-events  PartitionCount:1    ReplicationFactor:1 Configs:
 Run the console producer client to write a few events into your topic. By default, each line you enter will result in a separate event being written to the topic.
 
 ```
-$ bin/kafka-console-producer.sh --topic quickstart-events --bootstrap-server @IP:9092
+kafka/bin/kafka-console-producer.sh --topic quickstart-events --bootstrap-server 192.168.33.13:9092
 ```
 You can stop the producer client with Ctrl-C at any time.
 
 Write events as Key:Value
 ```
-bin/kafka-console-producer.sh --topic topic1 --bootstrap-server @IP:9092 --property "parse.key=true" --property "key.separator=:"
+kafka/bin/kafka-console-producer.sh --topic topic1 --bootstrap-server 192.168.33.13:9092 --property "parse.key=true" --property "key.separator=:"
 ```
 
 ### 6. Read the events
 Open another terminal session and run the console consumer client to read the events you just created:
 ```
-$ bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server @IP:9092
+kafka/bin/kafka-console-consumer.sh --topic quickstart-events --from-beginning --bootstrap-server 192.168.33.13:9092
 ```
 You can stop the consumer client with Ctrl-C at any time.
 
