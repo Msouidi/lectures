@@ -15,12 +15,7 @@ def process(time, rdd):
            .withColumn("number", df["number"].cast(FloatType())) \
            .withColumn("country_code",df["country_code"].cast(StringType()))
           
-
-        df.write.format('jdbc').options(
-            url='jdbc:mysql://192.168.33.10/data',
-            dbtable='demo',
-            user='admin',
-            password='admin').mode('append').save()
+        df.write.mode('append').csv('outputs/')
 
                      
                      
@@ -33,9 +28,9 @@ sc = spark.sparkContext
 sc.setLogLevel("ERROR")
 ssc = StreamingContext(sc, 10)
 
-directKafkaStream = KafkaUtils.createDirectStream(ssc, ["demo"], {"metadata.broker.list": "192.168.33.13:9092"})
-rdd = directKafkaStream.map(lambda x: x[1].split(','))
-rdd.foreachRDD(process)
+directKafkaStream = KafkaUtils.createDirectStream(ssc, ["my_topic"], {"metadata.broker.list": "192.168.33.13:9092"})
+drdd = directKafkaStream.map(lambda x: x[1].split(','))
+drdd.foreachRDD(process)
 
 
 ssc.start()
