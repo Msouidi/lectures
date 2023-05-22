@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-18.04"
+  # Configure provisioning
+  config.vm.provision "shell", path: "bootstrap.sh"
+  config.vm.provision "shell", path: "start.sh", run: "always"
+  # using a specific IP.
+  config.vm.network "private_network", ip: "192.168.33.100"
+  # 
+  config.vm.provider "virtualbox" do |vb|
+      vb.cpus = 2
+      vb.memory = 1024
+      vb.gui = false
+      vb.name = "spark-kafka"
+  end
+end
